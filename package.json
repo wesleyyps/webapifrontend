@@ -1,0 +1,21 @@
+{
+  "name": "webfront",
+  "version": "1.0.0",
+  "description": "Simple User API Frontend in AngularJS",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Wesley Sousa",
+  "license": "ISC",
+  "devDependencies": {
+    "angular": "^1.4.7",
+    "angular-route": "^1.4.7",
+    "bootstrap": "^4.5.3",
+    "grunt": "^1.3.0",
+    "grunt-contrib-concat": "^1.0.1",
+    "grunt-contrib-cssmin": "^3.0.0",
+    "grunt-contrib-uglify": "^5.0.0",
+    "jquery": "^3.5.1"
+  }
+}

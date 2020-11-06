@@ -1,0 +1,136 @@
+<!doctype html>
+<html ng-app="WebFront">
+    <head>
+        <link rel="stylesheet" href="css/application.css" />
+        <script src="https://kit.fontawesome.com/e8bfe6c2d4.js" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <div class="container">    
+            <div ng-view></div>
+        </div>
+
+        <script src="js/application.js"></script>
+
+        <script type="text/ng-template" id="pages/list.html">
+            <div ng-if="listSuccess" class="row">
+                <div class="col-12">
+                    <div class="alert alert-success" ng-bind="listSuccess"></div>
+                </div>
+            </div>
+            <div ng-if="listError" class="row">
+                <div class="col-12">
+                    <div class="alert alert-danger" ng-bind="listError"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <label class="control-label" for="searchName">Search By Name</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="searchName"/>
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-danger" type="button" id="button-clear-name" data-toggle="tooltip" title="Clear input" ng-click="clearInputAction('#searchName')">
+                                <i class="fas fa-backspace"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <button type="button" ng-click="searchAction()" class="btn btn-primary">
+                        <i class="fas fa-search"></i> Search
+                    </button>
+                </div>
+                <div class="col-6 text-right">
+                    <button type="button" ng-click="addAction()" class="btn btn-success">
+                        <i class="fas fa-user-plus"></i> Add New User
+                    </button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <table class="table table-bordered table-dark table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Name</th>
+                                <th>Age</th>
+                                <th>Address</th>
+                                <th>*</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="cursor-pointer" ng-repeat="item in userList track by $index" ng-click="editAction($event, item)" user-repeat-post-action>
+                                <td>{{item.id}}</td>
+                                <td>{{item.name}}</td>
+                                <td>{{item.age}}</td>
+                                <td>{{item.address}}</td>
+                                <td>
+                                    <a href="javascript:void(0)" data-toggle="tooltip" title="Delete User" ng-click="deleteAction(item.id)">
+                                        <i class="fas fa-user-times"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr ng-if="userList.length===0">
+                                <td colspan="5">No results found</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+                
+            <div class="modal fade" id="loading-modal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-sm">
+                    <div class="modal-content">
+                    <div class="modal-body" style="text-align: center;">
+                        <img src="images/Spinner-1s-200px.gif" /></h1><br/>
+                        Please wait, loading content...
+                    </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="form-modal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="form-modal-label" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="form-modal-label" ng-bind="formLabel"></h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <div class="row" ng-if="formError != ''">
+                        <div class="col-12">
+                            <div class="alert alert-danger" ng-bind="formError"></div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-12">
+                            <label class="control-label" for="userName">Name</label>
+                            <input class="form-control" type="text" id="userName" name="userName" ng-model="formUserName" required maxlength="50"/>
+                            <div ng-if="formError_Name" class="alert alert-danger" ng-bind="formError_Name"></div>
+                        </div>
+                        <div class="col-12">
+                            <label class="control-label" for="userAge">Age</label>
+                            <input class="form-control" type="number" id="userAge" name="userAge" ng-model="formUserAge"/>
+                            <div ng-if="formError_Age" class="alert alert-danger" ng-bind="formError_Age"></div>
+                        </div>
+                        <div class="col-12">
+                            <label class="control-label" for="userAddress">Address</label>
+                            <input class="form-control" type="text" id="userAddress" name="userAddress" ng-model="formUserAddress" required maxlength="50"/>
+                            <div ng-if="formError_Address" class="alert alert-danger" ng-bind="formError_Address"></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                        <i class="fas fa-times"></i> Close
+                      </button>
+                      <button type="button" class="btn btn-primary" ng-click="saveAction()">
+                        <i class="fas fa-save"></i> Save
+                      </button>
+                    </div>
+                  </div>
+                </div>
+            </div>
+        </script>
+    </body>
+</html>
