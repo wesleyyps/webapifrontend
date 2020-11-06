@@ -1,6 +1,6 @@
 jQuery.noConflict();
 
-var apiUrl = 'https://localhost:5001/api',
+var apiUrl = 'http://localhost:5000/api',
     app = angular.module('WebFront', ['ngRoute']);
 
 app.directive('userRepeatPostAction', function() {
